@@ -1,0 +1,27 @@
+:root {
+  --bg-prime: #008ad2;
+  --bg-second: #1f1e1e;
+
+  --txt-clr-prime: #dcdcdc;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--txt-clr-prime);
+  text-shadow: 0 0 1px #000;
+}
+
+body {
+  background: var(--bg-prime);
+}
+
+header {
+  background-color: var(--bg-second);
+  padding: 0.5em 1rem;
+}
