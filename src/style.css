@@ -25,3 +25,16 @@ header {
   background-color: var(--bg-second);
   padding: 0.5em 1rem;
 }
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(10, 45px);
+  grid-template-rows: repeat(10, 45px);
+}
+
+.game-board > div {
+  border: 1px solid #333;
+  font-weight: bold;
+  font-size: 2rem;
+  color: #fff;
+}
