@@ -5,6 +5,7 @@ export default class Ship {
     this.hitpoints = length;
     this.destroyed = false;
     this.orientation = "horizontal";
+    this.selected = false;
   }
 
   hit() {
@@ -12,6 +13,14 @@ export default class Ship {
     if (this.hitpoints <= 0) {
       this.destroyed = true;
     }
+  }
+
+  select() {
+    this.selected = true;
+  }
+
+  deSelect() {
+    this.selected = false;
   }
 
   toggleOrientation() {
