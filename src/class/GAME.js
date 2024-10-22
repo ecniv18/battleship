@@ -17,7 +17,9 @@ export default class GAME {
       }
 
       this.winner =
-        shipsDestroyed === this.playerTwo.ships.length ? "player" : null;
+        shipsDestroyed === this.playerTwo.ships.length
+          ? this.playerOne.name
+          : null;
     } else if (this.turn === this.playerTwo.name) {
       const playerShips = this.playerOne.ships;
       for (let i = 0; i < playerShips.length; i++) {
@@ -26,7 +28,17 @@ export default class GAME {
         }
       }
       this.winner =
-        shipsDestroyed === this.playerOne.ships.length ? "computer" : null;
+        shipsDestroyed === this.playerOne.ships.length
+          ? this.playerTwo.name
+          : null;
+    }
+  }
+
+  static selectShip(playerName, shipId) {
+    if (playerName === this.playerOne.name) {
+      this.playerOne.selectShip(shipId);
+    } else {
+      this.playerTwo.selectShip(shipId);
     }
   }
 
