@@ -65,20 +65,53 @@ describe("Ship Deployment", () => {
     });
   });
 
-  test("Prevent from deploying beyond the grid // horizontal", () => {
+  test("Prevent overlapping ships", () => {
     const board = new Gameboard();
     const ship = new Ship(3, 2);
+    const ship2 = new Ship(3, 1);
+    board.placeShip(ship, { x: 5, y: 1 });
+    board.placeShip(ship, { x: 5, y: 0 });
+  });
+
+  test("Prevent from deploying beyond the grid // horizontal", () => {
+    const board = new Gameboard();
+    const ship = new Ship(5, 2);
     board.placeShip(ship, { x: 5, y: 6 });
 
     const occupiedBlock = {
-      block1: board.grid[6][3].shipId,
-      block2: board.grid[5][4].shipId,
-      block3: board.grid[4][5].shipId,
-      block4: board.grid[3][6].shipId,
-      block5: board.grid[2][7].shipId,
+      block1: board.grid[5][5].shipId,
+      block2: board.grid[5][6].shipId,
+      block3: board.grid[5][7].shipId,
+      block4: board.grid[5][8].shipId,
+      block5: board.grid[5][9].shipId,
     };
 
     expect(occupiedBlock).toEqual({
+      block1: null,
+      block2: null,
+      block3: null,
+      block4: null,
+      block5: null,
+    });
+  });
+
+  test("Prevent from deploying beyond the grid // vertically", () => {
+    const board1 = new Gameboard();
+    const ship1 = new Ship(3, 2);
+
+    ship1.toggleOrientation();
+
+    board1.placeShip(ship1, { x: 1, y: 6 });
+
+    const occupiedBlock1 = {
+      block1: board1.grid[4][6].shipId,
+      block2: board1.grid[3][6].shipId,
+      block3: board1.grid[2][6].shipId,
+      block4: board1.grid[1][6].shipId,
+      block5: board1.grid[0][6].shipId,
+    };
+
+    expect(occupiedBlock1).toEqual({
       block1: null,
       block2: null,
       block3: null,
@@ -107,7 +140,7 @@ describe("Record hits and misses", () => {
   }
 
   expect(GAME.playerTwo.board.stats).toEqual({
-    hit: 14,
-    miss: 86,
+    hit: 19,
+    miss: 81,
   });
 });

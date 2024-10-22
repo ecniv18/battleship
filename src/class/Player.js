@@ -16,9 +16,10 @@ export default class Player {
       new Ship(3, 2),
       new Ship(3, 3),
       new Ship(4, 4),
+      new Ship(5, 5),
     ];
   }
-  s;
+
   selectShip(shipId) {
     for (let i = 0; i < this.ships.length; i++) {
       if (this.ships[i].id === shipId) {

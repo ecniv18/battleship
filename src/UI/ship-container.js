@@ -12,9 +12,29 @@ function shipContainer(player) {
       type: "div",
       className: "ship_container",
     });
+    const toggleOrientationButton = createElement({
+      type: "button",
+      className: "setup_screen-orientation-button",
+      innerText: "Toggle Orientation",
+    });
+
+    listen({
+      element: toggleOrientationButton,
+      type: "click",
+      callbackFunction: () => {
+        if (!GAME.playerOne.selectedShip) return;
+        GAME.playerOne.ships = GAME.playerOne.ships.map((ship) => {
+          if (ship.id === GAME.playerOne.selectedShip.id) {
+            ship.toggleOrientation();
+          }
+          return ship;
+        });
+      },
+    }).start();
 
     (function eachShip() {
       container.innerHTML = "";
+
       player.ships.forEach((s) => {
         const newShip = ship(s).element();
         listen({
@@ -27,6 +47,7 @@ function shipContainer(player) {
         }).start();
 
         display(container, newShip);
+        display(container, toggleOrientationButton);
       });
     })();
 

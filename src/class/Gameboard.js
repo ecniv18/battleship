@@ -19,22 +19,31 @@ export default class Gameboard {
 
   placeShip(ship, coor) {
     if (ship.orientation === "horizontal") {
-      if (coor.y + ship.length > 10) {
-        // prevent from deploying beyond the grid
-        // console.log("can't deploy here");
-        return;
-      }
-      for (let i = 0; i < ship.length; i++) {
-        this.grid[coor.x][coor.y + i].shipId = ship.id;
+      // for (let i = 0; i < ship.length; i++) {
+      //   if (this.grid[coor.x][coor.y + i].shipId !== null) {
+      //     console.log("overlap prevented");
+      //     return;
+      //   }
+      // }
+      if (coor.y + ship.length <= 10) {
+        for (let i = 0; i < ship.length; i++) {
+          this.grid[coor.x][coor.y + i].shipId = ship.id;
+        }
       }
     } else if (ship.orientation === "vertical") {
-      if (coor.x - ship.length < 0) {
-        // prevent from deploying beyond the grid
-        // console.log("can't deploy here");
-        return;
-      }
-      for (let i = 0; i < ship.length; i++) {
-        this.grid[coor.x - i][coor.y].shipId = ship.id;
+      // for (let i = 0; i < ship.length; i++) {
+      //   if (this.grid[coor.x - i][coor.y].shipId !== null) {
+      //     console.log("overlap prevented");
+      //     return;
+      //   }
+      // }
+
+      if (coor.x - ship.length <= 10) {
+        for (let i = 0; i < ship.length; i++) {
+          this.grid[coor.x + i][coor.y].shipId = ship.id;
+          console.log(this.grid[coor.x + i][coor.y]);
+        }
+        console.log("placed");
       }
     }
   }

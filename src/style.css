@@ -103,6 +103,10 @@ button {
   position: relative;
 }
 
+.ship[data-id] > .ship-block {
+  background-color: #7c0343;
+}
+
 .ship:hover > .ship-block::after {
   content: "";
   position: absolute;
@@ -128,13 +132,28 @@ button {
   background-color: var(--block-bg);
 }
 
-.block:hover::after {
+.occupied::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #7c0343;
+}
+
+.hovered-block::after {
   content: "";
   position: absolute;
   inset: 0;
   border: 2px solid var(--bg-light);
   border-radius: 5px;
 }
+
+/* .block:hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--bg-light);
+  border-radius: 5px;
+} */
 
 .game-board {
   display: grid;
