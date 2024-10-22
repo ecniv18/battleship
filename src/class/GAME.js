@@ -6,7 +6,7 @@ export default class GAME {
   static turn = this.playerOne.name;
   static winner = null;
 
-  static #checkPlayerGameOver() {
+  static #checkWinner() {
     let shipsDestroyed = 0;
     if (this.turn === this.playerOne.name) {
       const playerShips = this.playerTwo.ships;
@@ -48,7 +48,7 @@ export default class GAME {
     } else if (this.turn == this.playerTwo.name) {
       this.playerOne.board.recieveAttack(coor, this.playerOne.ships);
     }
-    this.#checkPlayerGameOver();
+    this.#checkWinner();
 
     // Switches turn every attack
     this.turn =
