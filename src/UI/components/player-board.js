@@ -151,6 +151,8 @@ export default function playerBoard(player) {
                     }
                   }
                 }
+
+                disableShip(selectedShip);
               }
             },
           }).start();
@@ -158,27 +160,48 @@ export default function playerBoard(player) {
           display(container, block);
         }
       }
+
       return container;
     },
   };
 }
 
 function errorDetected(player, selectedShip, blockX, blockY) {
+  const playerGrid = player.getGrid();
+
+  for (let i = 0; i < playerGrid.length; i++) {
+    for (let j = 0; j < playerGrid.length; j++) {
+      if (GAME.playerOne.board.grid[i][j].shipId == selectedShip.id) {
+        return true;
+      }
+    }
+  }
+
   if (selectedShip.orientation === "horizontal") {
     if (blockY + selectedShip.length > 10) return true;
     for (let k = 0; k < selectedShip.length; k++) {
-      if (player.getGrid()[blockX][blockY + k].shipId !== null) {
+      if (playerGrid[blockX][blockY + k].shipId !== null) {
         return true;
       }
     }
   } else if (selectedShip.orientation === "vertical") {
     if (blockX + selectedShip.length > 10) return true;
     for (let k = 0; k < selectedShip.length; k++) {
-      if (player.getGrid()[blockX + k][blockY].shipId !== null) {
+      if (playerGrid[blockX + k][blockY].shipId !== null) {
         return true;
       }
     }
   }
 
   return false;
+}
+
+function disableShip(selectedShip) {
+  const shipsElement = document.querySelectorAll(
+    `.ship[data-id="${selectedShip.id}"] > .ship-block`
+  );
+
+  shipsElement.forEach((shipBlock) => {
+    shipBlock.style.backgroundColor = "gray";
+  });
 }

@@ -2,7 +2,7 @@ import Player from "./Player";
 
 export default class GAME {
   static playerOne = new Player("player");
-  static playerTwo = new Player("Computer");
+  static playerTwo = new Player("computer");
   static turn = this.playerOne.name;
   static winner = null;
 
@@ -50,18 +50,18 @@ export default class GAME {
     }
     this.#checkWinner();
 
-    // Switches turn every attack
-    this.turn =
-      this.turn === this.playerOne.name
-        ? this.playerTwo.name
-        : this.playerOne.name;
+    // // Switches turn every attack
+    // this.turn =
+    //   this.turn === this.playerOne.name
+    //     ? this.playerTwo.name
+    //     : this.playerOne.name;
   }
 
   static deployShip(playerName, ship, coor) {
     if (playerName === this.playerOne.name) {
-      this.playerOne.board.placeShip(ship, coor);
+      this.playerOne.board.placeShip(playerName, ship, coor);
     } else if (playerName === this.playerTwo.name) {
-      this.playerTwo.board.placeShip(ship, coor);
+      this.playerTwo.board.placeShip(playerName, ship, coor);
     }
   }
 
@@ -91,22 +91,22 @@ export default class GAME {
               }
             }
             if (canPlace) {
-              this.playerTwo.board.placeShip(ship, block.coordinates);
+              this.deployShip(GAME.playerTwo.name, ship, block.coordinates);
               placed = true;
             }
           }
         } else if (ship.orientation === "vertical") {
-          if (randX - ship.length >= 0) {
+          if (randX + ship.length <= 10) {
             // VERTICALLY
 
             for (let i = 0; i < ship.length; i++) {
-              if (this.playerTwo.board.grid[randX - i][randY].shipId !== null) {
+              if (this.playerTwo.board.grid[randX + i][randY].shipId !== null) {
                 canPlace = false;
                 break;
               }
             }
             if (canPlace) {
-              this.playerTwo.board.placeShip(ship, block.coordinates);
+              this.deployShip(GAME.playerTwo.name, ship, block.coordinates);
               placed = true;
             }
           }

@@ -8,9 +8,10 @@
   --txt-clr-light: #dcdcdc;
 
   --block-bg: #3f9cce;
+  --block-destroyed-bg: #df7371;
   --block-size: 36px;
 
-  --clr-selected: #cbce15;
+  --clr-selected: #e4f579;
 }
 * {
   box-sizing: border-box;
@@ -107,6 +108,13 @@ button {
   background-color: #7c0343;
 }
 
+.ship[data-placed="true"] > .ship-block {
+  background-color: gray;
+}
+.placed > .ship-block {
+  background-color: gray;
+}
+
 .ship:hover > .ship-block::after {
   content: "";
   position: absolute;
@@ -147,14 +155,6 @@ button {
   border-radius: 5px;
 }
 
-/* .block:hover::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 2px solid var(--bg-light);
-  border-radius: 5px;
-} */
-
 .game-board {
   display: grid;
   grid-template-columns: repeat(10, 45px);
@@ -166,4 +166,39 @@ button {
   font-weight: bold;
   font-size: 2rem;
   color: #fff;
+}
+
+/* BATTLE SCREEN */
+.battle_screen {
+  display: grid;
+  gap: 1rem;
+}
+.score_board {
+  display: flex;
+
+  justify-content: space-between;
+}
+
+.player_one-name,
+.player_two-name {
+  color: var(--clr-selected);
+  font-size: 2rem;
+}
+.player_one-counter-label,
+.player_two-counter-label {
+  display: flex;
+  gap: 1rem;
+  font-size: 1.5rem;
+
+  font-weight: normal;
+}
+
+.player_one-counter-label > span,
+.player_two-counter-label > span {
+  font-weight: bold;
+}
+
+.board_container {
+  display: flex;
+  gap: 5rem;
 }

@@ -2,6 +2,7 @@ import GAME from "../class/GAME";
 import createElement from "../modules/ui/createElement";
 import display from "../modules/ui/display";
 import listen from "../modules/ui/listen";
+import battleScreen from "./battle-screen";
 import playerBoard from "./components/player-board";
 
 import { ShipContainer } from "./ship-container";
@@ -24,6 +25,19 @@ function setupScreen() {
       type: "div",
       className: "setup_screen-board_container",
     });
+
+    listen({
+      element: startBattleButton,
+      type: "click",
+      callbackFunction: () => {
+        if (!GAME.playerOne.ready()) return;
+        display(
+          document.querySelector(".index"),
+          battleScreen().element(),
+          true
+        );
+      },
+    }).start();
 
     display(boardContainer, [
       ShipContainer.element(),

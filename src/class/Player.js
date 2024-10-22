@@ -20,6 +20,14 @@ export default class Player {
     ];
   }
 
+  ready() {
+    for (let i = 0; i < this.ships.length; i++) {
+      if (!this.ships[i].placed) return false;
+    }
+
+    return true;
+  }
+
   selectShip(shipId) {
     for (let i = 0; i < this.ships.length; i++) {
       if (this.ships[i].id === shipId) {

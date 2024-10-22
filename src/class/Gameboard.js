@@ -1,3 +1,5 @@
+import GAME from "./GAME";
+
 export default class Gameboard {
   constructor() {
     this.grid = this.#generateGrid(10);
@@ -17,34 +19,24 @@ export default class Gameboard {
     block.destroyed = true;
   }
 
-  placeShip(ship, coor) {
+  placeShip(playerName, ship, coor) {
     if (ship.orientation === "horizontal") {
-      // for (let i = 0; i < ship.length; i++) {
-      //   if (this.grid[coor.x][coor.y + i].shipId !== null) {
-      //     console.log("overlap prevented");
-      //     return;
-      //   }
-      // }
       if (coor.y + ship.length <= 10) {
         for (let i = 0; i < ship.length; i++) {
           this.grid[coor.x][coor.y + i].shipId = ship.id;
         }
       }
     } else if (ship.orientation === "vertical") {
-      // for (let i = 0; i < ship.length; i++) {
-      //   if (this.grid[coor.x - i][coor.y].shipId !== null) {
-      //     console.log("overlap prevented");
-      //     return;
-      //   }
-      // }
-
       if (coor.x - ship.length <= 10) {
         for (let i = 0; i < ship.length; i++) {
           this.grid[coor.x + i][coor.y].shipId = ship.id;
-          console.log(this.grid[coor.x + i][coor.y]);
         }
-        console.log("placed");
       }
+    }
+    if (playerName === "player") {
+      GAME.playerOne.ships[ship.id].placed = true;
+    } else if (playerName === "computer") {
+      GAME.playerTwo.ships[ship.id].placed = true;
     }
   }
 

@@ -6,6 +6,7 @@ export default class Ship {
     this.destroyed = false;
     this.orientation = "horizontal";
     this.selected = false;
+    this.placed = false;
   }
 
   hit() {

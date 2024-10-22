@@ -1,7 +1,5 @@
 import createElement from "../../modules/ui/createElement";
 import display from "../../modules/ui/display";
-import listen from "../../modules/ui/listen";
-import GAME from "../../class/GAME";
 
 export default function ship(ship) {
   let container = createElement({
@@ -15,6 +13,10 @@ export default function ship(ship) {
       {
         property: "selected",
         value: ship.selected,
+      },
+      {
+        property: "placed",
+        value: ship.placed,
       },
     ],
   });
