@@ -5,7 +5,7 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack serve --open --config webpack.dev.js",
-    "deploy": "git subtree push --prefix dist origin deployment",
+    "deploy": "git add dist -f && git commit -m 'Deployment commit' && git subtree push --prefix dist origin deployment && git checkout main",
     "test": "jest --watch"
   },
   "author": "",
