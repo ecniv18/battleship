@@ -44,35 +44,10 @@ export default function scoreBoard() {
     innerText: playerTwo.name,
   });
 
-  const counterLabelOne = createElement({
-    type: "p",
-    className: "player_one-counter-label",
-    innerText: "Ships",
-  });
-
-  const counterLabeTwo = createElement({
-    type: "p",
-    className: "player_two-counter-label",
-    innerText: "Ships",
-  });
-  const counterOne = createElement({
-    type: "span",
-    className: "player_one-counter",
-    innerText: shipCounterOne ?? 0,
-  });
-
-  const counterTwo = createElement({
-    type: "span",
-    className: "player_two-counter",
-    innerText: shipCounterTwo ?? 0,
-  });
-
   return {
     element: () => {
-      display(counterLabelOne, counterOne);
-      display(counterLabeTwo, counterTwo);
-      display(containerOne, [nameOne, counterLabelOne]);
-      display(containerTwo, [nameTwo, counterLabeTwo]);
+      display(containerOne, [nameOne]);
+      display(containerTwo, [nameTwo]);
       display(container, [containerOne, containerTwo]);
       return container;
     },

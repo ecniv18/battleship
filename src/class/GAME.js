@@ -7,30 +7,28 @@ export default class GAME {
   static winner = null;
 
   static #checkWinner() {
-    let shipsDestroyed = 0;
-    if (this.turn === this.playerOne.name) {
-      const playerShips = this.playerTwo.ships;
-      for (let i = 0; i < playerShips.length; i++) {
-        if (playerShips[i].destroyed) {
-          shipsDestroyed += 1;
-        }
+    let destroyedShipsOne = 0;
+    const shipsOne = this.playerTwo.ships;
+    for (let i = 0; i < shipsOne.length; i++) {
+      if (shipsOne[i].destroyed) {
+        destroyedShipsOne += 1;
       }
+    }
 
-      this.winner =
-        shipsDestroyed === this.playerTwo.ships.length
-          ? this.playerOne.name
-          : null;
-    } else if (this.turn === this.playerTwo.name) {
-      const playerShips = this.playerOne.ships;
-      for (let i = 0; i < playerShips.length; i++) {
-        if (playerShips[i].destroyed) {
-          shipsDestroyed += 1;
-        }
+    let destroyedShipsTwo = 0;
+    const shipsTwo = this.playerOne.ships;
+    for (let i = 0; i < shipsTwo.length; i++) {
+      if (shipsTwo[i].destroyed) {
+        destroyedShipsTwo += 1;
       }
-      this.winner =
-        shipsDestroyed === this.playerOne.ships.length
-          ? this.playerTwo.name
-          : null;
+    }
+    if (destroyedShipsOne >= this.playerTwo.ships.length) {
+      this.winner = this.playerOne.name;
+      return;
+    }
+    if (destroyedShipsTwo >= this.playerOne.ships.length) {
+      this.winner = this.playerTwo.name;
+      return;
     }
   }
 

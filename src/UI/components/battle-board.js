@@ -12,7 +12,6 @@ export default function battleBoard(player) {
 
   let playerGrid = player.getGrid();
   if (player.name === GAME.playerTwo.name) {
-    console.log("run");
     GAME.deployComputerShip();
     playerGrid = GAME.playerTwo.getGrid();
   }
@@ -43,7 +42,6 @@ export default function battleBoard(player) {
               element: block,
               type: "click",
               callbackFunction: () => {
-                console.log(block.dataset.x, block.dataset.y);
                 GAME.attack({ x: block.dataset.x, y: block.dataset.y });
                 const bxy =
                   GAME.playerTwo.getGrid()[block.dataset.x][block.dataset.y];
@@ -74,9 +72,13 @@ export default function battleBoard(player) {
                   }
 
                   block.classList.remove("occupied");
-                  if (GAME.winner) {
-                    alert(GAME.winner);
-                  }
+                }
+
+                computerAttack(attackedBlocks);
+                updatePlayerOneBoardUI();
+                if (GAME.winner) {
+                  alert(GAME.winner);
+                  return;
                 }
               },
             }).start();
@@ -88,4 +90,77 @@ export default function battleBoard(player) {
       return container;
     },
   };
+}
+
+const attackedBlocks = [];
+function computerAttack() {
+  if (GAME.winner) {
+    alert(GAME.winner);
+    return;
+  }
+  const randX = Math.floor(Math.random() * 10);
+  const randY = Math.floor(Math.random() * 10);
+
+  if (attackedBlocks.includes(`${randX}${randY}`)) {
+    computerAttack();
+  }
+
+  GAME.turn = GAME.playerTwo.name;
+  GAME.attack({ x: Number(randX), y: Number(randY) });
+  GAME.turn = GAME.playerOne.name;
+  attackedBlocks.push(`${randX}${randY}`);
+}
+
+function updatePlayerOneBoardUI(
+  container = document.querySelector(`.player_board[data-user="player"]`)
+) {
+  const player = GAME.playerOne;
+  const grid = player.getGrid();
+
+  container.innerHTML = "";
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid.length; j++) {
+      const block = createElement({
+        type: "div",
+        className: "block",
+        dataset: [
+          { property: "x", value: i },
+          { property: "y", value: j },
+        ],
+      });
+
+      const bxy = grid[block.dataset.x][block.dataset.y];
+
+      if (bxy.destroyed) {
+        if (bxy.shipId !== null) {
+          switch (bxy.shipId) {
+            case 0:
+              block.style.backgroundColor = "#cbce15";
+              break;
+            case 1:
+              block.style.backgroundColor = "#153dce";
+              break;
+            case 2:
+              block.style.backgroundColor = "#ce15c2";
+              break;
+            case 3:
+              block.style.backgroundColor = "#239443";
+              break;
+            case 4:
+              block.style.backgroundColor = "#ce1515";
+              break;
+            case 5:
+              block.style.backgroundColor = "#f3f3f3";
+              break;
+          }
+        } else {
+          block.style.backgroundColor = "#333";
+        }
+      } else if (bxy.shipId !== null) {
+        block.style.backgroundColor = "#7c0343";
+      }
+
+      display(container, block);
+    }
+  }
 }
